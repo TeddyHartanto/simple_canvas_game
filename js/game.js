@@ -1,3 +1,17 @@
+/*
+ * If you look closely to how the game is made, essentially, it can be broken down into these:
+ * 0. Getting the assets
+ * 1. Setup
+ * 		Canvas
+ * 		Image sources and loading
+ * 2. Listening to keyboard inputs
+ * 3. Game mechanics (if user press this, this should happen. If this object touches that, this should happen, etc)
+ *   -> can be considered the changing of states?
+ * 4. Rendering function (that get's called in the main loop) -> happens a lot of time
+ * 5. Main loop -> the never-ending game loop
+ */
+
+
 // Create the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
@@ -59,16 +73,16 @@ var reset = function () {
 
 // Update game objects
 var update = function (modifier) {
-	if (38 in keysDown) { // Player holding up
+	if (38 in keysDown && hero.y >= 0) { // Player holding up
 		hero.y -= hero.speed * modifier;
 	}
-	if (40 in keysDown) { // Player holding down
+	if (40 in keysDown && hero.y <= (canvas.height - 32)) { // Player holding down
 		hero.y += hero.speed * modifier;
 	}
-	if (37 in keysDown) { // Player holding left
+	if (37 in keysDown && hero.x >= 0) { // Player holding left
 		hero.x -= hero.speed * modifier;
 	}
-	if (39 in keysDown) { // Player holding right
+	if (39 in keysDown && hero.x <= (canvas.width - 32)) { // Player holding right
 		hero.x += hero.speed * modifier;
 	}
 
